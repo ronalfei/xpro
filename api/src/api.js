@@ -13,7 +13,6 @@
 
 	GroupChat.prototype.initialize = function () {
 		var me = this;
-		//_.loadCss('http://meet.xpro.im/v2/api/xmeet.test.css');
 		_.loadCss('http://meet.xpro.im/v2/api/xmeet.api.css');
 
 		var tpl_chat = __inline('./xmeet-chat.tpl');

@@ -7,7 +7,7 @@
 			"uglify": true,
 			"copy": true,
 			"pack": {
-				"xmeet.js": [
+				"xmeet.api.js": [
 					"_.js",
 					"api.js",
 					"TweenMax.min.js",
