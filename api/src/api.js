@@ -1,6 +1,6 @@
 (function (window) {
 
-	var sock, win, members;
+	var sock, win, members, history_nickname;
 
 	function GroupChat(roomId, roomName, nickname, encryption) {
 		this.roomId = roomId;
@@ -138,12 +138,13 @@ console.log("get cookie : " + _.cookies.getItem('nickname'));
 			});
 
 			sock.on('history', function (data) {
+				history_nickname = {}
 				data.content.forEach(function (msg) {
 					var u = members[msg.from];
 					if (!u) {
 						u = {
 							uid: msg.from,
-							name: generateName(false)
+							name: generateHistoryName(msg.from)
 						}
 					}
 					win && win.receiveMessage('history', new FilterChain(msg.payload).filter('emotionIn'), u, msg.send_time);
@@ -178,6 +179,17 @@ console.log("get cookie : " + _.cookies.getItem('nickname'));
 			_.dom.show('.xmeet-chat-logo');
 		});
 	};
+
+	function generateHistoryName(uid){
+console.log("history_nickname" + history_nickname);
+		if (history_nickname[uid] != undefined){
+			return history_nickname[uid];
+		}else{
+			var tmp_name = generateName(false);
+			history_nickname[uid] = tmp_name;
+			return tmp_name;
+		}
+	}
 
 	function generateName(is_set_cookie) {
 		var names = {
